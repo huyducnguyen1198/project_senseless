@@ -67,3 +67,72 @@ Ensure your `.env` file (or environment variables) is set up with the correct da
 These values should match your local MySQL setup.
 
 Follow these instructions to set up and run the `project_senseless` backend for development and testing.
+
+
+
+
+# Testing Project Senseless API Endpoints
+
+This guide provides instructions for testing the `project_senseless` backend API endpoints using Django's admin interface and Postman. The API supports operations on `UserType` and `User` entities.
+
+## API Endpoints
+
+The following endpoints are available for `UserType` and `User`:
+
+- **UserType Endpoints**
+  - List all user types: `GET /api/userType/`
+  - Retrieve user type details: `GET /api/userType/<str:pk>/`
+  - Create a new user type: `POST /api/userType/create/`
+  - Update an existing user type: `PUT or PATCH /api/userType/<str:pk>/update/`
+  - Delete a user type: `DELETE /api/userType/<str:pk>/delete/`
+
+- **User Endpoints**
+  - List all users: `GET /api/user/`
+  - Retrieve user details: `GET /api/user/<int:pk>/`
+  - Create a new user: `POST /api/user/create/`
+  - Update an existing user: `PUT or PATCH /api/user/<int:pk>/update/`
+  - Delete a user: `DELETE /api/user/<int:pk>/delete/`
+
+## Testing Using Django Admin Interface
+
+To test the API through Django's admin interface, ensure you have created superuser access:
+
+```bash
+python manage.py createsuperuser
+```
+
+Follow the prompts to set up a username, email, and password. Then, start the server:
+
+```bash
+python manage.py runserver
+```
+
+Navigate to `http://127.0.0.1:8000/admin/` in your web browser, log in with your superuser credentials, and use the admin interface to create, update, or delete `UserType` and `User` entities.
+
+## Testing Using Postman
+
+[Postman](https://www.postman.com/) is a powerful tool for testing APIs. To use Postman for testing the endpoints:
+
+1. **Install Postman**: Download and install Postman from its official website.
+2. **Configure Request**: For each endpoint you wish to test:
+   - Select the appropriate HTTP method (GET, POST, PUT/PATCH, DELETE).
+   - Enter the request URL, e.g., `http://127.0.0.1:8000/api/userType/` for listing user types.
+   - For POST, PUT, and PATCH requests, set the header `Content-Type` to `application/json` and include the request body in JSON format.
+   - Send the request and review the response.
+
+### Example: Creating a UserType
+
+- Method: POST
+- URL: `http://127.0.0.1:8000/api/userType/create/`
+- Headers: Key: `Content-Type`, Value: `application/json`
+- Body (raw JSON):
+  ```json
+  {
+    "userTypeName": "New UserType",
+    "userTypeDesc": "Description for New UserType"
+  }
+  ```
+
+Repeat similar steps for other endpoints, adjusting the HTTP method, URL, and request body as necessary.
+
+By following these instructions, you can test the functionality of your API endpoints using both Django's admin interface and Postman.
