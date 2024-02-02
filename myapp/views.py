@@ -2,8 +2,8 @@ from rest_framework.decorators import api_view
 from rest_framework import generics
 from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView
 from rest_framework.response import Response
-from .models import UserType, User
-from .serializers import UserTypeSerializer, UserSerializer
+from .models import *
+from .serializers import *
 # Create your views here.
 '''
 @api_view(['GET'])
@@ -81,3 +81,34 @@ class UserUpdate(generics.UpdateAPIView):
 class UserDelete(generics.DestroyAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
+    
+
+###################### LevelPack ############################
+
+class LevelPackList(ListAPIView):
+    serializer_class = LevelPackSerializer
+    queryset = LevelPack.objects.all()
+    
+class LevelPackDetail(RetrieveAPIView):
+    serializer_class = LevelPackSerializer
+    queryset = LevelPack.objects.all()
+
+class LevelPackCreate(CreateAPIView, ListAPIView):
+    serializer_class = LevelPackSerializer
+    queryset = LevelPack.objects.all()
+
+    def perform_create(self, serializer):
+        name = self.request.data.get('name')
+        desc = self.request.data.get('description')
+        return serializer.save(name=name, description=desc)
+    
+class LevelPackUpdate(generics.UpdateAPIView):
+    serializer_class = LevelPackSerializer
+    queryset = LevelPack.objects.all()
+
+class LevelPackDelete(generics.DestroyAPIView):
+    serializers_class = LevelPackSerializer
+    queryset = LevelPack.objects.all()
+    
+    
+
